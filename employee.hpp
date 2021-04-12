@@ -10,7 +10,7 @@ class Person{
     Person(const string& _f_name, const string& _l_name,
       const size_t& _age) : age(_age),
       f_name(_f_name), l_name(_l_name){}
-    virtual void Display(bool);
+    virtual void Display(bool) const;
   protected:
     string f_name;//first name
     string l_name;//last name
