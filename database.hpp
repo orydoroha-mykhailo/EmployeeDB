@@ -15,7 +15,7 @@ class Database{
     void DisplayDepartmentEmployees(const string& _department);
     //fire the employee
     bool FireEmployee(const size_t& id);
-    void DisplayAll();
+    void DisplayAll() const;
     //Add here whatever you need
   private:
     std::vector<Person*> employees;

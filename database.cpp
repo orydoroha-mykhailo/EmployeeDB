@@ -6,59 +6,36 @@
 #include <algorithm>
 using namespace std;
 
-enum class job_type{
-  EMPLOYEE,
-  MANAGER
-};
-istream& operator>>(istream& stream, job_type& jt) {
-  bool tmp; 
-  stream >> tmp;
-  if(tmp)
-    jt = job_type::EMPLOYEE;
-  else
-    jt = job_type::MANAGER;
-    return stream;
-}
-
 bool Database::LoadFromFile(const string& filename)
 {
-  job_type person_position;
-  size_t id;
-  string name;
-  string surname;
-  size_t age;
-  string depart;
-  size_t salary;
+  string f_name, l_name, department;
+  size_t id, age, salary;
+  bool is_manager;
 
   ifstream csv(filename, ios::out);
-  while (!csv.eof())
+  while (csv)
   {
-    csv >> person_position;
-    csv.ignore(1);
-    csv >> id;
-    csv.ignore(1);
-    csv >> name;
-    csv.ignore(1);
-    csv >> surname;
-    csv.ignore(1);
-    csv >> age;
-    csv.ignore(1);
-    csv >> depart;
-    csv.ignore(1);
+    csv >> is_manager;
+
+    char _;
+    csv >> _ >> id >> _;
+    getline(csv, f_name, ',');
+    getline(csv, l_name, ',');
+    csv >> age >> _;
+    getline(csv, department, ',');
     csv >> salary;
-    csv.ignore(1);
     Person *p;
-    switch (person_position) {
-    case job_type::EMPLOYEE:
-      p = new Employee(name, surname, age, id);
-      static_cast<Employee*>(p)->SetDepartment(depart);
+    switch (is_manager) {
+    case false:
+      p = new Employee(f_name, l_name, age, id);
+      static_cast<Employee*>(p)->SetDepartment(department);
       static_cast<Employee*>(p)->SetSalary(salary);
       break;
 
-    case job_type::MANAGER:
+    case true:
       new Manager;
-      p = new Manager(name, surname, age, id);
-      static_cast<Manager*>(p)->SetDepartment(depart);
+      p = new Manager(f_name, l_name, age, id);
+      static_cast<Manager*>(p)->SetDepartment(department);
       static_cast<Manager*>(p)->SetSalary(salary);
       break;
     
@@ -109,6 +86,9 @@ Person* Database::HireEmployee(Person* p)
   return nullptr;
 }
 
-void Database::DisplayAll(){
-
+void Database::DisplayAll() const{
+  for(const auto p : employees)
+  {
+    p->Display();
+  }
 }

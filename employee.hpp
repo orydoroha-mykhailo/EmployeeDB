@@ -7,6 +7,7 @@ using string = std::string;
 class Person{
   public:
     Person(){};
+    virtual ~Person() = default;
     Person(const string& _f_name, const string& _l_name,
       const size_t& _age) : age(_age),
       f_name(_f_name), l_name(_l_name){}
