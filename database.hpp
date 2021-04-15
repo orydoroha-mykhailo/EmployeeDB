@@ -11,7 +11,7 @@ class Database{
     //arranges "flat" database after loading from the file
     void ArrangeSubordinates();
     //hire a new employee
-    Person* HireEmployee(const Person *p);
+    Person* HireEmployee(Person *p);
     void DisplayDepartmentEmployees(const string& _department);
     //fire the employee
     bool FireEmployee(const size_t& id);

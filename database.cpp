@@ -63,14 +63,14 @@ bool Database::LoadFromFile(const string& filename)
       break;
     
     default:
-      return 1;
+      return false;
       break;
     }
 
     employees.push_back(p);
     
   }
-  return 0;
+  return true;
 }
 
 void Database::ArrangeSubordinates() {
@@ -87,6 +87,28 @@ void Database::ArrangeSubordinates() {
     tmp = static_cast<Manager*>(*find(employees.begin(), employees.end(),
     static_cast<Person*>(p.second.first)));
     for(const auto& s : p.second.second)
-      tmp->AddSubordinate(*s);
+      tmp->AddSubordinate(s);
   }
+}
+bool Database::FireEmployee(const size_t& id){
+  if(id < employees.size())
+  {
+    employees.erase(employees.begin() + id);
+    return false;
+  }
+  else
+    return true;
+}
+
+Person* Database::HireEmployee(Person* p)
+{
+  if(p){
+    employees.push_back(p);
+    return p;
+  }
+  return nullptr;
+}
+
+void Database::DisplayAll(){
+
 }
