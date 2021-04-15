@@ -58,3 +58,21 @@ bool Manager::AddSubordinate(Person* p){
   }
   return false;
 }
+
+Manager::Manager(const Manager& other) {
+  *this = other;
+}
+
+Manager& Manager::operator = (const Manager& other) {
+  f_name = other.f_name;
+  l_name = other.l_name;
+  age = other.age;
+  department = other.department;
+  salary = other.salary;
+  id = other.id;
+
+  for (const auto person : other.subordinates) {
+    subordinates.push_back(person);
+  }
+  return *this;
+}

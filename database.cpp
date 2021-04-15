@@ -25,23 +25,16 @@ bool Database::LoadFromFile(const string& filename)
     getline(csv, department, ',');
     csv >> salary;
     Person *p;
-    switch (is_manager) {
-    case false:
-      p = new Employee(f_name, l_name, age, id);
-      static_cast<Employee*>(p)->SetDepartment(department);
-      static_cast<Employee*>(p)->SetSalary(salary);
-      break;
-
-    case true:
+    if(is_manager) {
       new Manager;
       p = new Manager(f_name, l_name, age, id);
       static_cast<Manager*>(p)->SetDepartment(department);
       static_cast<Manager*>(p)->SetSalary(salary);
-      break;
-    
-    default:
-      return false;
-      break;
+    }
+    else {
+      p = new Employee(f_name, l_name, age, id);
+      static_cast<Employee*>(p)->SetDepartment(department);
+      static_cast<Employee*>(p)->SetSalary(salary);
     }
 
     employees.push_back(p);

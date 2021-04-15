@@ -24,8 +24,8 @@ class Employee : public Person{
     Employee(const string& _f_name, const string& _l_name,
      const size_t& _age, const size_t& _id) :
     Person(_f_name, _l_name, _age), id(_id){};
-    Employee(const Employee& e);
-    Employee& operator=(const Employee &e);
+    Employee(const Employee& e) = default;
+    Employee& operator=(const Employee &e) = default;
     void SetSalary(const size_t& wage) {salary = wage;}
     void SetDepartment(const string& dept) {department = dept;}
     void SetId(const size_t& _id) {id = _id;}
