@@ -7,7 +7,7 @@ class Database{
     Database(){};
     ~Database(){};//no need in destructor
     //creates "flat" database
-    bool LoadFromFile(const char *file);
+    bool LoadFromFile(const string& file_name);
     //arranges "flat" database after loading from the file
     void ArrangeSubordinates();
     //hire a new employee
